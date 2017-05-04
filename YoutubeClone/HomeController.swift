@@ -45,7 +45,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
                     self.collectionView?.reloadData()
                 }
-            } catch let jsonError {
+            } catch let jsonError { 
                 print(jsonError)
             }
         }).resume()
