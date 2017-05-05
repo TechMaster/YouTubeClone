@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     lazy var  collectionView: UICollectionView = {

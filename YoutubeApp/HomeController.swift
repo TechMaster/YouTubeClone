@@ -45,7 +45,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
                     self.collectionView?.reloadData()
                 }
-            } catch let jsonError { 
+            } catch let jsonError {
                 print(jsonError)
             }
         }).resume()
@@ -75,19 +75,25 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func setupNavBarButtons() {
+        
         let searchImage = UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal)
+        
         let searchBarButtonItem = UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
+        
         let moreButton = UIBarButtonItem(image: UIImage(named: "nav_more_icon")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleMore))
         
         navigationItem.rightBarButtonItems = [moreButton, searchBarButtonItem]
     }
     
-    func handleSearch() {
-        
-    }
+    let settingsLauncher = SettingsLauncher()
     
     func handleMore() {
-        
+        // show menu
+        settingsLauncher.showSettings()
+    }
+    
+    func handleSearch() {
+        print(123)
     }
     
     let menuBar: MenuBar = {
@@ -116,6 +122,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return CGSize(width: view.frame.width, height: height + 16 + 88)
     }
 }
+
 
 
 
