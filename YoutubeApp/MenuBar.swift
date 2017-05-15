@@ -22,6 +22,8 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let cellId = "cellId"
     let imageNames = ["home", "trending", "subscriptions", "account"]
     
+    var homeController: HomeController?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -53,13 +55,14 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let x = CGFloat(indexPath.item) * frame.width / 4
-        horizontalBarLeftAnchorConstraint?.constant = x
-        
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
-        }, completion: nil)
+//        
+//        let x = CGFloat(indexPath.item) * frame.width / 4
+//        horizontalBarLeftAnchorConstraint?.constant = x
+//        
+//        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//            
+//        }, completion: nil)
+        homeController?.scrollToMenuIndex(indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -67,7 +70,9 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
+        
         cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
         cell.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
         return cell
@@ -82,7 +87,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemente    d")
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

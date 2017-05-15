@@ -10,18 +10,19 @@ import UIKit
 
 class ApiService: NSObject {
     
-    static let shareInstance = ApiService()
+    static let sharedInstance = ApiService()
     
-    func fetchVideos(completion: @escaping ([Video]) -> ()) {
+    func fetchVideos(_ completion: @escaping ([Video]) -> ()) {
         let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
         URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-            if error !=  nil {
+            
+            if error != nil {
                 print(error)
                 return
             }
-            do
-            {
-                let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                 
                 var videos = [Video]()
                 
@@ -36,15 +37,24 @@ class ApiService: NSObject {
                     let channel = Channel()
                     channel.name = channelDictionary["name"] as? String
                     channel.profileImageName = channelDictionary["profile_image_name"] as? String
+                    
                     video.channel = channel
+                    
                     videos.append(video)
                 }
+                
                 DispatchQueue.main.async(execute: {
                     completion(videos)
                 })
+                
             } catch let jsonError {
                 print(jsonError)
             }
-        }).resume()
+            
+            
+            
+        }) .resume()
     }
+    
 }
+

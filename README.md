@@ -1,7 +1,5 @@
 # iOS Swift App that clones YouTube player by students of TechMaster.
 
-====
-
 ## 1. Introduction - Home Feed Layout
 
 ## 2. MVC, JSON, and Image Loading
