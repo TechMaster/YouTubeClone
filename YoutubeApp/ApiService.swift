@@ -16,7 +16,7 @@ class ApiService: NSObject {
     
     func fetchVideos(_ completion: @escaping ([Video]) -> ()) {
         
-        fetchFeedForUrlString(urlString: "\(baseUrl)/home.json", completion: completion)
+        fetchFeedForUrlString(urlString: "\(baseUrl)/home_num_likes.json", completion: completion)
     }
     
     func fetchTrendingFeed(_ completion: @escaping ([Video]) -> ()) {
@@ -41,17 +41,8 @@ class ApiService: NSObject {
             do {
                 if let unwrappedData = data, let jsonDictionaries = try JSONSerialization.jsonObject(with: unwrappedData, options: .mutableContainers) as? [[String: AnyObject]]  {
                     
-//                    var videos = [Video]()
-//                    
-//                    for dictionary in jsonDictionaries as! [[String: AnyObject]] {
-//                        let video = Video(dictionary: dictionary)
-//                        videos.append(video)
-//                    }
-                    
-                    let videos = jsonDictionaries.map
-                    
                     DispatchQueue.main.async(execute: {
-                        completion(videos)
+                        completion(jsonDictionaries.map({return Video(dictionary: $0)}))
                     })
                 }
                 
@@ -87,3 +78,17 @@ class ApiService: NSObject {
 //DispatchQueue.main.async(execute: {
 //    completion(videos)
 //})
+
+//let numbersArray = [1, 2, 3]
+//let doubleNumbersArray = numbersArray.map({return $0 * 2})
+//let stringsArray = numbersArray.map({return "\($0 * 2)"})
+//print(stringsArray)
+//
+//var videos = [Video]()
+//
+//for dictionary in jsonDictionaries as! [[String: AnyObject]] {
+//    let video = Video(dictionary: dictionary)
+//    videos.append(video)
+//}
+
+
