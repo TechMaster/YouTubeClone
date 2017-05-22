@@ -12,9 +12,9 @@ class SafeJsonObject: NSObject {
     
     override func setValue(_ value: Any?, forKey key: String) {
         let uppercasedFirstCharacter = String(key.characters.first!).uppercased()
-        
-        let range = key.startIndex..<key.characters.index(key.startIndex, offsetBy: 1)
-        let selectorString = key.replacingCharacters(in: range, with: uppercasedFirstCharacter)
+
+        let range = NSMakeRange(0, 1)
+        let selectorString = NSString(string: key).replacingCharacters(in: range, with: uppercasedFirstCharacter)
         
         let selector = NSSelectorFromString("set\(selectorString):")
         let responds = self.responds(to: selector)
@@ -22,10 +22,8 @@ class SafeJsonObject: NSObject {
         if !responds {
             return
         }
-        
         super.setValue(value, forKey: key)
     }
-    
 }
 
 class Video: SafeJsonObject {
@@ -52,7 +50,6 @@ class Video: SafeJsonObject {
         super.init()
         setValuesForKeys(dictionary)
     }
-    
 }
 
 class Channel: SafeJsonObject {
